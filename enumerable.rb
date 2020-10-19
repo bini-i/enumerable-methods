@@ -25,13 +25,9 @@ module Enumerable
         end
         puts selected_elements
     end
+    
 end
     
-
-
-
- 
- 
 
    # puts selected_elements
  
