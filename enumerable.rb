@@ -1,36 +1,33 @@
 
 
 module Enumerable
-    def my_each()
+    def my_each
         self.length.times do |k|
-        result = yield self[k]
-        puts result
+            yield self[k]
         end
         self
     end
  
-    def my_index()
-        puts "index"
+    def my_each_with_index
         self.length.times do |j|
             yield j
         end
         self
     end
 
-    def my_select()
-        puts "odd"
-        selected_elements=Array.new
-        self.my_each() do |k|
+    def my_select
+        selected_elements = []
+        self.my_each do |k|
             selected_elements.push(k) if (yield k)
         end
-        puts selected_elements
+        selected_elements
     end
     
-end
-    
-
-   # puts selected_elements
- 
-[8, 3, 6, 81, 4,78,24,45,91].my_select do |i| 
-     i.odd?
+    def my_all?
+        self.my_each do |ele|              
+            #returns false if an element that doesn't satsify the condition is found     
+            return false unless yield ele
+        end
+        true         
+    end
 end
