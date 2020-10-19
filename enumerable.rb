@@ -30,4 +30,11 @@ module Enumerable
         end
         true         
     end
+
+    def my_any?
+        self.my_each do |ele|
+            return true if yield ele
+        end
+        false
+    end
 end
