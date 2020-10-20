@@ -44,4 +44,15 @@ module Enumerable
         end
         true
     end
+
+    def my_count
+        count=0
+        self.my_each do |ele|
+            count+=1 if yield ele
+        end
+        count
+    end
+
+
+    
 end
