@@ -61,6 +61,14 @@ module Enumerable
         new_array
     end
 
+    def my_inject
+        accumulator=0
+        self.my_each do |ele|
+            accumulator = yield accumulator,ele
+        end
+        accumulator
+    end
+
 
     
 end
