@@ -7,8 +7,8 @@ module Enumerable
   end
 
   def my_each_with_index
-    length.times do |j|
-      yield j
+    length.times do |indx|
+      yield self[indx], indx
     end
     self
   end
@@ -52,6 +52,8 @@ module Enumerable
   end
 
   def my_map(*param, &block)
+    # can accept either a proc or a block, and if both are provided,
+    # only uses a proc
     new_array = []
     if param.length.positive?
       proc = param[0] # proc object
@@ -65,9 +67,16 @@ module Enumerable
     new_array
   end
 
-  def my_inject
-    accumulator = first
-    (1..(length - 1)).my_each do |indx|
+  def my_inject(*param)
+    if param.length.positive?
+      # provides optional parameter for default value of accumulator
+      accumulator = param[0]
+      i = 0
+    elsif param.length.zero?
+      accumulator = first
+      i = 1
+    end
+    (i..(length - 1)).my_each do |indx|
       accumulator = yield accumulator, self[indx]
     end
     accumulator
