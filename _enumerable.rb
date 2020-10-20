@@ -53,8 +53,14 @@ module Enumerable
         count
     end
 
-    def my_map(proc)
+    def my_map(*param, &block)
         new_array=[]
+        if param.length>0 
+            proc = param[0]     #proc object
+        elsif param.length == 0 && block
+            proc = block        #proc object
+        end
+
         self.my_each do |ele|
             new_array.push(proc.call(ele)) 
         end
