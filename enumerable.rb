@@ -2,8 +2,8 @@
 
 module Enumerable
     def my_each
-        self.length.times do |k|
-            yield self[k]
+        for ele in self
+            yield ele
         end
         self
     end
@@ -62,13 +62,16 @@ module Enumerable
     end
 
     def my_inject
-        accumulator=0
-        self.my_each do |ele|
-            accumulator = yield accumulator,ele
+        accumulator=self.first
+        (1..(self.length-1)).my_each do |indx|
+            accumulator = yield accumulator,self[indx]
         end
         accumulator
     end
 
-
-    
+    def multiply_els
+        self.my_inject do |accumulator, ele|
+            accumulator *= ele
+        end  
+    end
 end
