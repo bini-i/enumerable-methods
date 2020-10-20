@@ -53,10 +53,10 @@ module Enumerable
         count
     end
 
-    def my_map
+    def my_map(proc)
         new_array=[]
         self.my_each do |ele|
-            new_array.push(yield ele)
+            new_array.push(proc.call(ele)) 
         end
         new_array
     end
@@ -67,11 +67,5 @@ module Enumerable
             accumulator = yield accumulator,self[indx]
         end
         accumulator
-    end
-
-    def multiply_els
-        self.my_inject do |accumulator, ele|
-            accumulator *= ele
-        end  
     end
 end
