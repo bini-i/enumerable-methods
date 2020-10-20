@@ -9,7 +9,9 @@
 ## How to use this repo?
 
 * Clone the repo
-* Open the repo in terminal
+* Open the repo in terminal window
+* Install ruby and pry 
+* Open pry
 * Run the following comand
 ```
 load "_enumerable.rb"
