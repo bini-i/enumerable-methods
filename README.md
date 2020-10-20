@@ -2,9 +2,33 @@
 
 # Enumerable methods
 
-> Our own implementaion of Ruby’s enumerable methods
+> This project is our own implementaion of Ruby’s enumerable methods
 
 ![screenshot](./assets/img/app_screenshot.png)
+
+## How to use this repo?
+
+* Clone the repo
+* Open the repo in terminal
+* Run the following comand
+```
+load "_enumerable.rb"
+```
+* Execute any of the methods available on an Array object
+* Example
+```
+[2,4,5,1].my_map do |ele|
+  ele * 2
+end
+
+=> [4, 8, 10, 2]
+
+[2,4,5,1].my_inject(5) do |acc, ele|
+  acc *= ele
+end
+
+=> 200
+```
 
 ## Built With
 
