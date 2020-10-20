@@ -53,6 +53,14 @@ module Enumerable
         count
     end
 
+    def my_map
+        new_array=[]
+        self.my_each do |ele|
+            new_array.push(yield ele)
+        end
+        new_array
+    end
+
 
     
 end
