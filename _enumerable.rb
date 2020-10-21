@@ -110,7 +110,16 @@ module Enumerable
     true
   end
 
-  def my_count
+  def my_count(*param)
+    #when a comparing argument is provided
+    if param.length.positive?
+      count = 0
+      my_each do |ele| 
+        count+=1 if ele == param[0]
+      end
+      return count
+    end
+    
     count = 0
     my_each do |ele|
       count += 1 if yield ele
