@@ -33,7 +33,7 @@ module Enumerable
     if param.length.positive?
       if param[0].class == Regexp
         my_each do |ele|
-          return false unless param[0].match(ele)
+          return false unless param[0].match(ele.to_s)
         end
         return true
       elsif param[0].class == Class
@@ -46,6 +46,7 @@ module Enumerable
 
     # returns false if a block is not given and falsy element is found
     my_each { |ele| return false unless ele || block_given? }
+    # returns true if a block is not given and falsy element is not found
     return true unless block_given?
 
     my_each do |ele|
@@ -55,15 +56,55 @@ module Enumerable
     true
   end
 
-  def my_any?
+  def my_any?(*param)
+    if param.length.positive?
+      if param[0].class == Regexp
+        my_each do |ele|
+          return true if param[0].match(ele.to_s)
+        end
+        return false
+      elsif param[0].class == Class
+        my_each do |ele|
+          return true if ele.is_a?(param[0])
+        end
+        return false
+      end
+    end
+
+    # returns true if a block is not given and truthy element is found
+    my_each { |ele| return true if ele && !block_given? }
+    # returns false if a block is not given and truthy element is not found
+    return false unless block_given?
+
     my_each do |ele|
+      #returns true if an element that satsifys the condition is found
       return true if yield ele
     end
     false
   end
 
-  def my_none?
+  def my_none?(*param)
+    if param.length.positive?
+      if param[0].class == Regexp
+        my_each do |ele|
+          return false if param[0].match(ele.to_s)
+        end
+        return true
+      elsif param[0].class == Class
+        my_each do |ele|
+          return false if ele.is_a?(param[0])
+        end
+        return true
+      end
+    end
+
+    # returns true if a block is not given and truthy element is found 
+    my_each { |ele| return false if ele && !block_given? }
+    # returns false if a block is not given and truthy element is not found
+    return true unless block_given?
+
     my_each do |ele|
+      # returns false if an element that satsifys the condition is found
       return false if yield ele
     end
     true
@@ -78,8 +119,9 @@ module Enumerable
   end
 
   def my_map(*param, &block)
-    # can accept either a proc or a block, and if both are provided,
-    # only uses a proc
+    return to_enum(:my_each) unless block_given?
+
+    # can accept either a proc or a block, and if both are provided, only uses a proc
     new_array = []
     if param.length.positive?
       proc = param[0] # proc object
@@ -94,6 +136,29 @@ module Enumerable
   end
 
   def my_inject(*param)
+    #when no block is given and symbol is provided as argument
+    unless block_given?
+      arr = *self
+      if param.length == 1
+        proc = param[0].to_proc   #converts symbol into a proc object
+        accumulator = first
+        (1..(size - 1)).my_each do |indx|
+          accumulator = proc.call(accumulator, arr[indx])
+        end
+        return accumulator
+      elsif param.length == 2
+        proc = param[1].to_proc   #converts symbol into a proc object
+        accumulator = param[0]
+        my_each do |ele|
+          accumulator = proc.call(accumulator, ele)
+        end
+        return accumulator
+      else
+
+      end
+    end
+
+    #when a block is specified
     if param.length.positive?
       # provides optional parameter for default value of accumulator
       accumulator = param[0]
@@ -102,8 +167,9 @@ module Enumerable
       accumulator = first
       i = 1
     end
-    (i..(length - 1)).my_each do |indx|
-      accumulator = yield accumulator, self[indx]
+    arr = *self # if a range is given, it splats it into an array
+    (i..(size - 1)).my_each do |indx|
+      accumulator = yield accumulator, arr[indx]
     end
     accumulator
   end
