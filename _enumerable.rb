@@ -1,14 +1,20 @@
 module Enumerable
-  def my_each
-    each do |ele|
-      yield ele
+  def my_each()
+    return to_enum(:my_each) unless block_given?
+
+    arr = *self             #if a range is given, it splats it into an array
+    size.times do |indx|
+      yield arr[indx]     
     end
     self
   end
 
   def my_each_with_index
-    length.times do |indx|
-      yield self[indx], indx
+    return to_enum(:my_each) unless block_given?
+
+    arr = *self             #if a range is given, it splats it into an array
+    size.times do |indx|
+      yield arr[indx], indx
     end
     self
   end

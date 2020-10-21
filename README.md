@@ -32,6 +32,10 @@ end
 => 200
 ```
 
+## Live Demo
+
+[Live Demo Link](https://repl.it/@binii/Enumerablemethods)
+
 ## Built With
 
 - Ruby
