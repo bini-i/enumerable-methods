@@ -116,6 +116,8 @@ module Enumerable
   end
 
   def my_inject(*param)
+    # raises exeception if no block and no argument is provided
+    raise LocalJumpError, 'no block given' unless block_given? || param.length.positive?
     # when no block is given and symbol is provided as argument
     return Helper.no_block(self, param) unless block_given?
 
