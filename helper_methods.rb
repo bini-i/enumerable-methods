@@ -54,7 +54,7 @@ module Helper
     arr = *arr
     if param.length == 1
       proc = param[0].to_proc # converts symbol into a proc object
-      accumulator = first
+      accumulator = arr.first
       (1..(arr.size - 1)).my_each do |indx|
         accumulator = proc.call(accumulator, arr[indx])
       end
