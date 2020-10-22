@@ -84,13 +84,13 @@ module Enumerable
         count += 1 if ele == param[0]
       end
       return count
-      elsif  param.length.zero? && !block_given?
-        count = 0
-        my_each do |ele|
-          count +=1
-        end
-        return count
+    elsif param.length.zero? && !block_given?
+      count = 0
+      my_each do |_ele|
+        count += 1
       end
+      return count
+    end
     count = 0
     my_each do |ele|
       count += 1 if yield ele
@@ -133,5 +133,11 @@ module Enumerable
       accumulator = yield accumulator, arr[indx]
     end
     accumulator
+  end
+end
+
+def multiply_els(arr)
+  arr.my_inject do |acc, ele|
+    acc * ele
   end
 end
