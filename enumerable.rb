@@ -117,7 +117,7 @@ module Enumerable
 
   def my_inject(*param)
     # when no block is given and symbol is provided as argument
-    Helper.no_block(self, param) unless block_given?
+    return Helper.no_block(self, param) unless block_given?
 
     # when a block is specified
     if param.length.positive?
