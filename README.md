@@ -9,10 +9,19 @@
 ## How to use this repo?
 
 * Clone the repo
+### option 1 (to include in your project)
+* copy enumerable.rb and helper_methods.rb files in your project
+* require enumerable.rb file with in your main program(executable) file using the following comand
+```
+require_relative "enumerable.rb"
+```
+* now all the methods from the new enumerable.rb file is accessibile from your project
+
+### option 2 (to test in REPL)
 * Open the repo in terminal window
 * Install ruby and pry 
 ```
-$ gem install pry
+$ gem install pry       (to install pry)
 ```
 * Open pry
 ```
@@ -30,6 +39,10 @@ $ pry
   end
 
 => [4, 8, 10, 2]
+
+> [2,4,9].my_all?(Integer)
+
+=> true
 
 > [2,4,5,1].my_inject(5) do |acc, ele|
     acc *= ele
