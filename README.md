@@ -11,23 +11,29 @@
 * Clone the repo
 * Open the repo in terminal window
 * Install ruby and pry 
+```
+$ gem install pry
+```
 * Open pry
+```
+$ pry
+```
 * Run the following comand
 ```
-load "_enumerable.rb"
+> load "enumerable.rb"
 ```
 * Execute any of the methods available on an Array object
 * Example
 ```
-[2,4,5,1].my_map do |ele|
-  ele * 2
-end
+> [2,4,5,1].my_map do |ele|
+    ele * 2
+  end
 
 => [4, 8, 10, 2]
 
-[2,4,5,1].my_inject(5) do |acc, ele|
-  acc *= ele
-end
+> [2,4,5,1].my_inject(5) do |acc, ele|
+    acc *= ele
+  end
 
 => 200
 ```
