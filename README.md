@@ -20,7 +20,7 @@ $ pry
 ```
 * Run the following comand
 ```
-> load "_enumerable.rb"
+> load "enumerable.rb"
 ```
 * Execute any of the methods available on an Array object
 * Example
