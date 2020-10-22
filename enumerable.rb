@@ -84,8 +84,13 @@ module Enumerable
         count += 1 if ele == param[0]
       end
       return count
-    end
-
+      elsif  param.length.zero? && !block_given?
+        count = 0
+        my_each do |ele|
+          count +=1
+        end
+        return count
+      end
     count = 0
     my_each do |ele|
       count += 1 if yield ele
