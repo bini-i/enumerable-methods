@@ -1,3 +1,5 @@
+require_relative 'helper_methods'
+
 module Enumerable
   def my_each()
     return to_enum(:my_each) unless block_given?
@@ -30,7 +32,7 @@ module Enumerable
   end
 
   def my_all?(*param)
-    return match_all(self, param[0]) if param.length.positive?
+    return Helper.match_all(self, param[0]) if param.length.positive?
 
     # returns false if a block is not given and falsy element is found
     my_each { |ele| return false unless ele || block_given? }
@@ -45,7 +47,7 @@ module Enumerable
   end
 
   def my_any?(*param)
-    return match_any(self, param[0]) if param.length.positive?
+    return Helper.match_any(self, param[0]) if param.length.positive?
 
     # returns true if a block is not given and truthy element is found
     my_each { |ele| return true if ele && !block_given? }
@@ -60,7 +62,7 @@ module Enumerable
   end
 
   def my_none?(*param)
-    return match_none(self, param[0]) if param.length.positive?
+    return Helper.match_none(self, param[0]) if param.length.positive?
 
     # returns true if a block is not given and truthy element is found
     my_each { |ele| return false if ele && !block_given? }
@@ -110,7 +112,7 @@ module Enumerable
 
   def my_inject(*param)
     # when no block is given and symbol is provided as argument
-    no_block(self, param) unless block_given?
+    Helper.no_block(self, param) unless block_given?
 
     # when a block is specified
     if param.length.positive?
