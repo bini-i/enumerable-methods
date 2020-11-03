@@ -168,7 +168,44 @@ describe Enumerable do
     end
     it 'returns a modified array after replace elements with given string' do
       expect(range.my_map { 'cat' }).to eq(range.map { 'cat' })
-      puts "My_map: #{range.my_map { 'cat' }}"
+    end
+  end
+
+  describe '#my_inject' do
+    context 'when no block and no starting value is given' do
+      it 'operates the element of a collection' do
+        expect((5..10).my_inject(:+)).to eq(45)
+      end
+    end
+    context 'when no block but starting value is given' do
+      it 'operates the elements of a collection from the starting value' do
+        expect((5..10).my_inject(1, :*)).to eq(151_200)
+      end
+    end
+    context 'when a block is given but no starting value' do
+      it 'operates the elements of a collection based on the block' do
+        expect((5..10).my_inject { |sum, n| sum + n }).to eq(45)
+      end
+    end
+    context 'when a block and starting value is given' do
+      it 'operates the elements of a collection based on the block from the starting value' do
+        expect((5..10).inject(1) { |product, n| product * n }).to eq(151_200)
+      end
+    end
+    it 'finds the longest word in the array' do
+      longest = %w[cat sheep bear].inject do |memo, word|
+        memo.length > word.length ? memo : word
+      end
+      expect(longest).to eq('sheep')
+    end
+  end
+
+  describe '#multiply_els' do
+    it 'multiplies all elements of the range' do
+      expect(multiply_els(range)).to eq(3_628_800)
+    end
+    it 'multiplies all elements of the array' do
+      expect(multiply_els(array)).to eq(192)
     end
   end
 end
