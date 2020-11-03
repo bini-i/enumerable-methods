@@ -22,7 +22,7 @@ module Enumerable
   end
 
   def my_select
-    return to_enum(:my_each) unless block_given?
+    return to_enum(:my_select) unless block_given?
 
     selected_elements = []
     my_each do |k|
