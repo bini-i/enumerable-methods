@@ -69,7 +69,7 @@ describe Enumerable do
     end
   end
 
-  describe '#my_all' do
+  describe '#my_all?' do
     it 'returns true if length of all elements is greater than or equal to 3' do
       expect(%w[ant bear cat].my_all? { |word| word.length >= 3 }).to eq(true)
     end
@@ -89,6 +89,29 @@ describe Enumerable do
     end
     it 'returns true if array is empty' do
       expect([].my_all?).to eq(true)
+    end
+  end
+
+  describe "#my_any?" do
+    it 'returns true if length of any element is greater than or equal to 3' do
+      expect(%w[ant bear cat].my_any? { |word| word.length >= 3 }).to eq(true)
+    end
+
+    it 'returns true if length of any element is greater than or equal to 4' do
+      expect(%w[ant bear cat].my_any? { |word| word.length >= 4 }).to eq(true)
+    end
+
+    it 'returns false if no element passes RegExp pattern matching' do
+      expect(%w[ant bear cat].my_any?(/d/)).to eq(false)
+    end
+    it 'returns true if any element is an Integer' do
+      expect([nil, true, 99].my_any?(Integer)).to eq(true)
+    end
+    it 'returns true if atleast one element is not nil' do
+      expect([nil, true, 99].my_any?).to eq(true)
+    end
+    it 'returns false if array is empty' do
+      expect([].my_any?).to eq(false)
     end
   end
 end
