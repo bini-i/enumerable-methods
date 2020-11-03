@@ -92,7 +92,7 @@ describe Enumerable do
     end
   end
 
-  describe "#my_any?" do
+  describe '#my_any?' do
     it 'returns true if length of any element is greater than or equal to 3' do
       expect(%w[ant bear cat].my_any? { |word| word.length >= 3 }).to eq(true)
     end
@@ -112,6 +112,35 @@ describe Enumerable do
     end
     it 'returns false if array is empty' do
       expect([].my_any?).to eq(false)
+    end
+  end
+
+  describe '#my_none?' do
+    it 'returns true if none of the elements of an array match the condition' do
+      expect(%w[ant bear cat].none? { |word| word.length == 5 }).to eq(true)
+    end
+
+    it 'returns false if atleast one element of an array matches the condition' do
+      expect(%w[ant bear cat].none? { |word| word.length >= 4 }).to eq(false)
+    end
+
+    it 'returns true if none of the elements match the RegExp' do
+      expect(%w[ant bear cat].none?(/d/)).to eq(true)
+    end
+    it 'returns false if atleast one element is of type Float' do
+      expect([1, 3.14, 42].none?(Float)).to eq(false)
+    end
+    it 'returns true if array is empty' do
+      expect([].none?).to eq(true)
+    end
+    it 'returns true if no truthy element is found' do
+      expect([nil].none?).to eq(true)
+    end
+    it 'returns true if no truthy element is found' do
+      expect([nil, false].none?).to eq(true)
+    end
+    it 'returns false if atleast one truthy element is found' do
+      expect([nil, false, true].none?).to eq(false)
     end
   end
 end
