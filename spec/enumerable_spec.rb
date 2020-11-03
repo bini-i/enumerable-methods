@@ -2,7 +2,7 @@ require 'rspec'
 require 'enumerable.rb'
 
 describe Enumerable do
-  let(:array) { [2, 4, 6] }
+  let(:array) { [2, 4, 6, 4] }
   let(:range) { (1..10) }
   let(:result) { [] }
   let(:my_result) { [] }
@@ -141,6 +141,34 @@ describe Enumerable do
     end
     it 'returns false if atleast one truthy element is found' do
       expect([nil, false, true].none?).to eq(false)
+    end
+  end
+
+  describe '#my_count' do
+    it 'returns length of the array if no argument or block is given' do
+      expect(array.my_count).to eq(array.count)
+    end
+
+    it 'returns number of items in the array that match the argument' do
+      expect(array.my_count(4)).to eq(array.count(4))
+    end
+
+    it 'returns number of items in the array that match the condition in the block' do
+      expect(range.my_count(&:even?)).to eq(range.count(&:even?))
+    end
+
+    it 'returns number of items in the array that match the condition in the block' do
+      expect(range.my_count { |x| x % 3 == 0 }).to eq(range.count { |x| x % 3 == 0 })
+    end
+  end
+
+  describe '#my_map' do
+    it 'returns a modified array after performing actions specified in the block' do
+      expect(range.my_map { |i| i * i }).to eq(range.map { |i| i * i })
+    end
+    it 'returns a modified array after replace elements with given string' do
+      expect(range.my_map { 'cat' }).to eq(range.map { 'cat' })
+      puts "My_map: #{range.my_map { 'cat' }}"
     end
   end
 end
